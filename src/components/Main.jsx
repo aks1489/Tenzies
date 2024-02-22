@@ -1,3 +1,5 @@
+import Die from "./Main_Files/Die";
+
 export default function Main(){
     return(
         <main>
@@ -5,16 +7,16 @@ export default function Main(){
                 <h3>Tenzies</h3>
                 <h5>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</h5>
                 <div className="box-container">
-                    <button className="box">1</button>
-                    <button className="box">2</button>
-                    <button className="box">3</button>
-                    <button className="box">4</button>
-                    <button className="box">5</button>
-                    <button className="box">6</button>
-                    <button className="box">7</button>
-                    <button className="box">8</button>
-                    <button className="box">9</button>
-                    <button className="box">10</button>
+                    <Die value="1" />
+                    <Die value="2" />
+                    <Die value="3" />
+                    <Die value="4" />
+                    <Die value="5" />
+                    <Die value="6" />
+                    <Die value="7" />
+                    <Die value="8" />
+                    <Die value="9" />
+                    <Die value="10" />
                 </div>
                 <button className="roll">Roll</button>
             </div>
