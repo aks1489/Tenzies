@@ -1,6 +1,10 @@
+import { useState } from "react";
 import Die from "./Main_Files/Die";
 
 export default function Main(){
+    const [ dies , setDies ] = useState(allNewDies());
+
+    // getting 10 randome number
     function allNewDies() {
         let num = []
         for(let i = 0; i< 10 ; i++) {
@@ -9,25 +13,23 @@ export default function Main(){
         }
         return num
     }
-    console.log(allNewDies())
+
+    // setting new 10 randome number when roll button clicked
+    function rollDies() {
+        setDies(allNewDies())
+    }
+    console.log(dies)
     return(
         <main>
             <div className="mainContainer">
-                <h3>Tenzies</h3>
-                <h5>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</h5>
-                <div className="box-container">
-                    <Die value="1" />
-                    <Die value="1" />
-                    <Die value="3" />
-                    <Die value="4" />
-                    <Die value="5" />
-                    <Die value="6" />
-                    <Die value="7" />
-                    <Die value="8" />
-                    <Die value="9" />
-                    <Die value="10" />
+                <div className="box-heading">
+                    <h1>Tenzies</h1>
+                    <h5>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</h5>
                 </div>
-                <button className="roll">Roll</button>
+                <div className="box-container">
+                    {dies.map(die => <Die value={die} />)}
+                </div>
+                <button className="roll-dies" onClick={rollDies}>Roll</button>
             </div>
         </main>
     )
