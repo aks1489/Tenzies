@@ -5,11 +5,20 @@ import { nanoid } from "nanoid";
 export default function Main(){
     const [ dies , setDies ] = useState(allNewDies());
 
-    // generating 10 randome number with isheld? and key (nanoid) property
+    // generating isheld? and key (nanoid) property
+    function generateDie() {
+        return {
+            value: Math.floor((Math.random() * 6 ) + 1), 
+            isHeld: false, 
+            key: nanoid()
+        }
+    }
+    
+    // generating 10 random numbers with 'generateDie()' function
     function allNewDies() {
         let num = []
         for(let i = 0; i< 10 ; i++) {
-            num[i] = {value: Math.floor((Math.random() * 6 ) + 1), isHeld: false, key: nanoid()};
+            num[i] = generateDie();
             // num.push(Math.ceil(Math.random() * 6 ));
         }
         return num
@@ -17,7 +26,11 @@ export default function Main(){
 
     // setting new 10 randome number when roll button clicked
     function rollDies() {
-        setDies(allNewDies())
+        setDies(prvDie => prvDie.map(die => {
+            return die.isHeld ?
+                die :
+                generateDie()
+        }))
     }
 
     function holdDies(id) {
@@ -26,6 +39,7 @@ export default function Main(){
             return die.key === id ? {...die, isHeld: !die.isHeld} : die
         }))
     }
+    
     console.log(dies)
     // mapping over dies for getting 10 dies with prop
     const diesElements = dies.map(die => (
