@@ -23,7 +23,7 @@ export default function Main(){
     function holdDies(id) {
         console.log(id)
         setDies(oldDie => oldDie.map(die => {
-            return die.id === id ? {...die, isHeld: !die.isHeld} : die
+            return die.key === id ? {...die, isHeld: !die.isHeld} : die
         }))
     }
     console.log(dies)
