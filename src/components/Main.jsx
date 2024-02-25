@@ -24,7 +24,7 @@ export default function Main(){
         return num
     }
 
-    // setting new 10 randome number when roll button clicked
+    // setting new randome number when roll button clicked except previously clicked dice
     function rollDies() {
         setDies(prvDie => prvDie.map(die => {
             return die.isHeld ?
@@ -39,7 +39,7 @@ export default function Main(){
             return die.key === id ? {...die, isHeld: !die.isHeld} : die
         }))
     }
-    
+
     console.log(dies)
     // mapping over dies for getting 10 dies with prop
     const diesElements = dies.map(die => (
