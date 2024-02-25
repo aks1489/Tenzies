@@ -19,7 +19,25 @@ export default function Main(){
     function rollDies() {
         setDies(allNewDies())
     }
+
+    function holdDies(id) {
+        console.log(id)
+        setDies(oldDie => oldDie.map(die => {
+            return die.id === id ? {...die, isHeld: !die.isHeld} : die
+        }))
+    }
     console.log(dies)
+    // mapping over dies for getting 10 dies with prop
+    const diesElements = dies.map(die => (
+        <Die 
+            key={die.key} 
+            value={die.value} 
+            isHeld={die.isHeld} 
+            id={die.key} 
+            holdDies={()=>holdDies(die.key)} 
+        />)
+    )
+
     return(
         <main>
             <div className="mainContainer">
@@ -28,7 +46,8 @@ export default function Main(){
                     <h5>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</h5>
                 </div>
                 <div className="box-container">
-                    {dies.map(die => <Die key={die.key} value={die.value} />)}
+                    {/* {dies.map(die => <Die key={die.key} value={die.value} isHeld={die.isHeld} id={die.key} holdDies={()=>holdDies(die.key)} />)} */}
+                    {diesElements}
                 </div>
                 <button className="roll-dies" onClick={rollDies}>Roll</button>
             </div>

@@ -70,6 +70,11 @@ main {
   background-color: white;
 }
 
+.box.green {
+  background-color: #59E391;
+  color: white;
+}
+
 .box-num {
   font-size: 2rem;
 }
