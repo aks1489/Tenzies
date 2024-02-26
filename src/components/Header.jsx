@@ -1,7 +1,7 @@
 export default function Header(){
     return(
         <header>
-            this is header
+            <img src="tenzie.png" alt="tenzies" />
         </header>
     )
 }

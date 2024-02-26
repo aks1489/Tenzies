@@ -7,6 +7,14 @@
 
 header {
   height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #163e57;
+}
+
+header > img {
+  height: 100%;
 }
 
 main {
@@ -102,4 +110,53 @@ main {
 
 footer {
   height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #163e57;
+}
+
+.f-head {
+  display: flex;
+  gap: 5px;
+}
+
+.f-head-text {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  font-size: 90%;
+}
+
+.f-head-link {
+  width: 95px;
+  height: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  text-decoration: none;
+  background-color: rgb(80,53,255);
+  border-radius: 10px;
+  color: #eee;
+  padding: 1px 10px;
+}
+
+.f-head-link-container {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.f-head-link-img {
+  height: 15px;
+}
+
+.f-head-link-text {
+  font-size: 85%;
+}
+
+.f-head-link-container:hover {
+  transform: scale(0.95);
 }
