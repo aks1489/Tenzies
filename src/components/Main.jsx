@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Die from "./Main_Files/Die";
 import { nanoid } from "nanoid";
 
 export default function Main(){
     const [ dies , setDies ] = useState(allNewDies());
+    const [ game, setGame ] = useState(false);
+
 
     // generating isheld? and key (nanoid) property
     function generateDie() {
@@ -33,6 +35,7 @@ export default function Main(){
         }))
     }
 
+    // holding the dice values 
     function holdDies(id) {
         console.log(id)
         setDies(oldDie => oldDie.map(die => {
@@ -40,7 +43,33 @@ export default function Main(){
         }))
     }
 
-    console.log(dies)
+    useEffect(() => {
+        //  {{  -------------------> check every dice {if all the value of "isHeld" is 'true'} and 
+        //  {"value" property values are similer to zero(0) index are similer
+        //  if all condition are tru then set the 'game' to true -----------< }}
+        //
+        //      ------>Code<-------
+        // for( let i = 0; i < 10; i++ ) {
+        //     if(dies[i].isHeld && dies[0].value === dies[i].value){
+        //         setGame(true)
+        //     }else{
+        //         setGame(false)
+        //         break;
+        //     }
+        // }
+
+        const allHeld = dies.every(die => die.isHeld)
+        const allSameValue = dies.every(die => die.value === dies[0].value)
+
+        if (allHeld && !allSameValue){
+            console.log("All numbers are not matched!")
+        } else if (allHeld && allSameValue) {
+            console.log("game completed")
+            setGame(true)
+        }
+
+    }, [dies])
+
     // mapping over dies for getting 10 dies with prop
     const diesElements = dies.map(die => (
         <Die 
