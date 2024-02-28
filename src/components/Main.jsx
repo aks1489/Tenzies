@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Die from "./Main_Files/Die";
 import { nanoid } from "nanoid";
+import ReactConfetti from "react-confetti";
 
 export default function Main(){
     const [ dies , setDies ] = useState(allNewDies());
@@ -26,21 +27,31 @@ export default function Main(){
         return num
     }
 
-    // setting new randome number when roll button clicked except previously clicked dice
+    // setting new randome number when roll button clicked except previously clicked
     function rollDies() {
-        setDies(prvDie => prvDie.map(die => {
-            return die.isHeld ?
-                die :
-                generateDie()
-        }))
+        // reset game when game if game is true
+        if(!game){
+            setDies(prvDie => prvDie.map(die => {
+                return die.isHeld ?
+                    die :
+                    generateDie()
+            }))
+        }else{
+            resetGame()
+        }
     }
 
     // holding the dice values 
     function holdDies(id) {
-        console.log(id)
         setDies(oldDie => oldDie.map(die => {
             return die.key === id ? {...die, isHeld: !die.isHeld} : die
         }))
+    }
+
+    // reset the Game
+    function resetGame() {
+        setDies(allNewDies)
+        setGame(false)
     }
 
     useEffect(() => {
@@ -64,7 +75,6 @@ export default function Main(){
         if (allHeld && !allSameValue){
             console.log("All numbers are not matched!")
         } else if (allHeld && allSameValue) {
-            console.log("game completed")
             setGame(true)
         }
 
@@ -83,6 +93,7 @@ export default function Main(){
 
     return(
         <main>
+            {game && <ReactConfetti />}
             <div className="mainContainer">
                 <div className="box-heading">
                     <h1>Tenzies</h1>
@@ -92,7 +103,7 @@ export default function Main(){
                     {/* {dies.map(die => <Die key={die.key} value={die.value} isHeld={die.isHeld} id={die.key} holdDies={()=>holdDies(die.key)} />)} */}
                     {diesElements}
                 </div>
-                <button className="roll-dies" onClick={rollDies}>Roll</button>
+                <button className="roll-dies" onClick={rollDies}>{game ? "New Game" : "Roll"}</button>
             </div>
         </main>
     )
