@@ -8,6 +8,7 @@ export default function Main(){
     const [ dies , setDies ] = useState(allNewDies());
     const [ game, setGame ] = useState(false);
     const [ modal, setModal ] = useState(false)
+    const [ rollCount, setRollCount ] =useState(0);
 
 
     // generating isheld? and key (nanoid) property
@@ -38,6 +39,7 @@ export default function Main(){
                     die :
                     generateDie()
             }))
+            setRollCount(prvCount => prvCount + 1)
         }else{
             resetGame()
         }
@@ -54,6 +56,7 @@ export default function Main(){
     function resetGame() {
         setDies(allNewDies)
         setGame(false)
+        setRollCount(0)
     }
 
     useEffect(() => {
@@ -103,6 +106,17 @@ export default function Main(){
                     <div className="box-heading">
                         <h1>Tenzies</h1>
                         <h5>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</h5>
+                        <div className="gameStats">
+                            <div className="best-time-box">
+                                <h2 className="stats">Best Time - 01:00</h2>
+                            </div>
+                            <div className="current-time">
+                                <h2 className="stats">00:00</h2>
+                            </div>
+                            <div className="total-roll">
+                                <h2 className="stats">Rolls - {rollCount}</h2>
+                            </div>
+                        </div>
                     </div>
                     <div className="box-container">
                         {/* {dies.map(die => <Die key={die.key} value={die.value} isHeld={die.isHeld} id={die.key} holdDies={()=>holdDies(die.key)} />)} */}
