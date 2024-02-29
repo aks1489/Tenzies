@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import Die from "./Main_Files/Die";
 import { nanoid } from "nanoid";
 import ReactConfetti from "react-confetti";
-import Wrong from "../assets/wrong.gif"
+import Modal from "./Main_Files/Modal";
 
 export default function Main(){
     const [ dies , setDies ] = useState(allNewDies());
     const [ game, setGame ] = useState(false);
     const [ modal, setModal ] = useState(false)
-    const [ modalDisplay, setModalDispay ] = useState("none")
 
 
     // generating isheld? and key (nanoid) property
@@ -84,10 +83,6 @@ export default function Main(){
 
     }, [dies])
 
-    function closeModal() {
-        setModal(false)
-    }
-
     // mapping over dies for getting 10 dies with prop
     const diesElements = dies.map(die => (
         <Die 
@@ -99,22 +94,10 @@ export default function Main(){
         />)
     )
 
-    // setting modal display property
-    useEffect(() => {
-        setModalDispay(() => modal ? "flex" : "none")
-        console.log(modalDisplay)
-        console.log("triggerd")
-    }, [modal])
-
     return(
         <>
-            <div className="modal" style={{display : modalDisplay}}>
-                <h2 className="modal-top-text">All number are not matched</h2>
-                <img className="modal-img" src={Wrong} alt="Number not Matched" />
-                <h2 className="modal-bottom-text"> Try to match all the numbers correctly</h2>
-                <button className="modal-close" onClick={closeModal}>Close</button>
-            </div>
-            <main style={{ filter: modal ? "blur(5px)" : "none" }}>
+            <Modal modal={modal} setModal={setModal} />
+            <main style={{ filter: modal ? "blur(5px)" : "none" , pointerEvents: modal ? "none" : "all"}}>
                 {game && <ReactConfetti />}
                 <div className="mainContainer">
                     <div className="box-heading">
