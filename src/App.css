@@ -179,7 +179,7 @@ footer {
   width: 300px;
   background-color: white;
   border-radius: 5px;
-  border: 3px solid black;
+  box-shadow: 0px 0px 20px 4px rgb(49 95 117);
   z-index: 1;
 }
 
