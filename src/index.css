@@ -8,7 +8,7 @@ body {
     font-weight: 700;
 }
 
-p {
+p,h2 {
     padding: 0;
     margin: 0;
 }
