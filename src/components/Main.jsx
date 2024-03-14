@@ -15,7 +15,7 @@ export default function Main(){
 
     // Timer
     const [ timer, setTimer ] = useState(false)
-    const [ currentTime, setCurrentTime ] = useState(0) 
+    const [ currentTime, setCurrentTime ] = useState(0)
 
     // generating isheld? and key (nanoid) property
     function generateDie() {
@@ -58,11 +58,13 @@ export default function Main(){
         }))
     }
 
-    // reset the Game
+    // reset the Game & set timer , roll count to 0 and start new timer
     function resetGame() {
         setDies(allNewDies)
         setGame(false)
         setRollCount(0)
+        setCurrentTime(0)
+        setTimer(true)
     }
 
     useEffect(() => {
@@ -93,6 +95,8 @@ export default function Main(){
 
     }, [dies])
 
+
+    // Timer Function
     useEffect(()=>{
         let intervalId;
         if(timer) {
