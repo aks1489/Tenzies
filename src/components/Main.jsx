@@ -1,15 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Die from "./Main_Files/Die";
 import { nanoid } from "nanoid";
 import ReactConfetti from "react-confetti";
 import Modal from "./Main_Files/Modal";
+import Timer from "./Main_Files/Timer";
 
 export default function Main(){
     const [ dies , setDies ] = useState(allNewDies());
     const [ game, setGame ] = useState(false);
     const [ modal, setModal ] = useState(false)
-    const [ rollCount, setRollCount ] =useState(0);
 
+    // Roll Counter
+    const [ rollCount, setRollCount ] = useState(0);
+
+    // Timer
+    const [ timer, setTimer ] = useState(false)
+    const [ currentTime, setCurrentTime ] = useState(0) 
 
     // generating isheld? and key (nanoid) property
     function generateDie() {
@@ -82,9 +88,29 @@ export default function Main(){
             setModal(true)
         } else if (allHeld && allSameValue) {
             setGame(true)
+            setTimer(false)
         }
 
     }, [dies])
+
+    useEffect(()=>{
+        let intervalId;
+        if(timer) {
+            intervalId = setInterval(()=>{
+                setCurrentTime(prvTime => prvTime + 1 )
+            }, 1000)
+        } else {
+            clearInterval(intervalId)
+        }
+
+        return () =>{
+            clearInterval(intervalId)
+        }
+    },[timer])
+
+    useEffect(() =>{
+        setTimer(true)
+    },[])
 
     // mapping over dies for getting 10 dies with prop
     const diesElements = dies.map(die => (
@@ -96,7 +122,7 @@ export default function Main(){
             holdDies={()=>holdDies(die.key)} 
         />)
     )
-
+    
     return(
         <>
             <Modal modal={modal} setModal={setModal} />
@@ -111,7 +137,9 @@ export default function Main(){
                                 <h2 className="stats">Best Time - 01:00</h2>
                             </div>
                             <div className="current-time">
-                                <h2 className="stats">00:00</h2>
+                            <Timer
+                                time={currentTime}
+                            />
                             </div>
                             <div className="total-roll">
                                 <h2 className="stats">Rolls - {rollCount}</h2>
