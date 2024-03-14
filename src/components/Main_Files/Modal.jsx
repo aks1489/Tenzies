@@ -12,8 +12,6 @@ export default function Modal(props) {
     // setting modal display property
     useEffect(() => {
         setModalDispay(() => props.modal ? "flex" : "none")
-        console.log(modalDisplay)
-        console.log("triggerd")
     }, [props.modal])
 
     return(
