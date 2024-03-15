@@ -16,7 +16,7 @@ export default function Main(){
     // Timer
     const [ timer, setTimer ] = useState(false)
     const [ currentTime, setCurrentTime ] = useState(0)
-    const [ bestTime, setBestTime ] = useState(0)
+    const [ bestTime, setBestTime ] = useState(()=> localStorage.getItem('bestTime') ? JSON.parse(localStorage.getItem('bestTime')) : null )
 
     // generating isheld? and key (nanoid) property
     function generateDie() {
@@ -39,7 +39,7 @@ export default function Main(){
 
     // setting new randome number when roll button clicked except previously clicked
     function rollDies() {
-        // reset game when game if game is true
+        // reset game if game is true
         if(!game){
             setDies(prvDie => prvDie.map(die => {
                 return die.isHeld ?
@@ -98,9 +98,11 @@ export default function Main(){
 
     }, [dies])
 
+    // setting and updating best time 
     useEffect(()=>{
-        if(game) {
+        if(game && bestTime > currentTime) {
             setBestTime(currentTime)
+            localStorage.setItem('bestTime', JSON.stringify(currentTime))
         }
     },[game])
 
@@ -121,6 +123,7 @@ export default function Main(){
         }
     },[timer])
 
+    // starting the timer on game load
     useEffect(() =>{
         setTimer(true)
     },[])
