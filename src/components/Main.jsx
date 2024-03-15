@@ -16,6 +16,7 @@ export default function Main(){
     // Timer
     const [ timer, setTimer ] = useState(false)
     const [ currentTime, setCurrentTime ] = useState(0)
+    const [ bestTime, setBestTime ] = useState(0)
 
     // generating isheld? and key (nanoid) property
     function generateDie() {
@@ -67,6 +68,8 @@ export default function Main(){
         setTimer(true)
     }
 
+    console.log(bestTime)
+
     useEffect(() => {
         //  {{  -------------------> check every dice {if all the value of "isHeld" is 'true'} and 
         //  {"value" property values are similer to zero(0) index are similer
@@ -94,6 +97,12 @@ export default function Main(){
         }
 
     }, [dies])
+
+    useEffect(()=>{
+        if(game) {
+            setBestTime(currentTime)
+        }
+    },[game])
 
 
     // Timer Function
