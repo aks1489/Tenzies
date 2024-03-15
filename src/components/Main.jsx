@@ -68,8 +68,6 @@ export default function Main(){
         setTimer(true)
     }
 
-    console.log(bestTime)
-
     useEffect(() => {
         //  {{  -------------------> check every dice {if all the value of "isHeld" is 'true'} and 
         //  {"value" property values are similer to zero(0) index are similer
@@ -100,12 +98,15 @@ export default function Main(){
 
     // setting and updating best time 
     useEffect(()=>{
-        if(game && bestTime > currentTime) {
+        if(game && bestTime < currentTime) {
             setBestTime(currentTime)
             localStorage.setItem('bestTime', JSON.stringify(currentTime))
+            console.log("triggerd")
         }
     },[game])
 
+
+    console.log(bestTime)
 
     // Timer Function
     useEffect(()=>{
@@ -150,12 +151,15 @@ export default function Main(){
                         <h5>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</h5>
                         <div className="gameStats">
                             <div className="best-time-box">
-                                <h2 className="stats">Best Time - 01:00</h2>
+                                <Timer
+                                    time={bestTime}
+                                    text={'Best Time'}
+                                />
                             </div>
                             <div className="current-time">
-                            <Timer
-                                time={currentTime}
-                            />
+                                <Timer
+                                    time={currentTime}
+                                />
                             </div>
                             <div className="total-roll">
                                 <h2 className="stats">Rolls - {rollCount}</h2>
