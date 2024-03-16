@@ -12,7 +12,7 @@
 
 
 ## Features
-
+- Play and enjoy the game !
 - Responsive Design
 
 ## Run Locally
